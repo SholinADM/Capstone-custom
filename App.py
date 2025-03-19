@@ -187,7 +187,6 @@ def main():
                     formatted_log = "\n".join([f"[{index}] {entry['role']}: {entry['content']} \n" 
                                                for index,entry in enumerate(st.session_state.messages)])
                     TWEAKS["TextInput-NZgrh"]["input_value"] = formatted_log
-                    st.write("log type", type(str(formatted_log)))
                     # Fetch response from Langflow 
                     assistant_response = extract_message(run_flow(query,TWEAKS))
                     message_placeholder.write(assistant_response)
