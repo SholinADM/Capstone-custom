@@ -21,10 +21,16 @@ def predict_image(image,class_names):
     image = np.array(image)
     image = cv2.resize(image, (160,160))
     image = np.expand_dims(image, axis=0)
-    predict = np.argmax(model.predict(image))
-    st.session_state.section = predict
-    predicted_class = class_names[predict]
-    return predicted_class
+    pred = model.predict(image)
+    predict = np.argmax(pred)
+    percentage = int(pred[0,predict]*100)
+    if percentage > 80:
+        st.session_state.section = predict
+        predicted_class = class_names[predict]
+    else:
+        predicted_class = "unknown"
+        percentage = 100 - percentage
+    return predicted_class , percentage
 #Save chat messages from chatbot in text file
 def save_conversation():
     with open("conversation.txt", "w", encoding="utf-8") as file:
@@ -155,12 +161,12 @@ def main():
                 st.session_state.image = st.file_uploader("Upload an image (JPG, PNG)", type=["jpg", "jpeg", "png"])
             if st.session_state.image is not None:
                 #predict the image class when uploaded
-                clothes_type = predict_image(st.session_state.image,class_names)
+                clothes_type, confidence = predict_image(st.session_state.image,class_names)
                 #Insert the image classification result to tweak to be sent together with query
                 TWEAKS["TextInput-HqNiz"]["input_value"] = clothes_type
                 st.toast("image uploaded")
                 st.image(st.session_state.image,width=160)
-                st.write(f"image detected: {clothes_type}")
+                st.write(f"image detected: {clothes_type} {confidence}%")
             
         # display previous messages with avatars 
         for messages in st.session_state.messages: 
