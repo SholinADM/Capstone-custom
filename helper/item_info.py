@@ -141,5 +141,5 @@ def tshirt():
             st.image(image,use_container_width=True)
     
 def item(index):
-        out = [blazer,button_shirts,Denim_jacket,Hoodie,Jeans,Long_pants,shorts,tshirt][index]()
+        out = [blazer,Denim_jacket,Hoodie,Jeans,shorts,tshirt,button_shirts,Long_pants][index]()
         return out

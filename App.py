@@ -148,7 +148,11 @@ def main():
             if st.button("Upload image"):
                 st.session_state.initiate_uploader = True
         if st.session_state.initiate_uploader:
-            st.session_state.image = st.file_uploader("Upload an image (JPG, PNG)", type=["jpg", "jpeg", "png"])
+            enable = st.checkbox("Enable camera")
+            if enable:
+                st.session_state.image = st.camera_input("Take a picture")
+            else:
+                st.session_state.image = st.file_uploader("Upload an image (JPG, PNG)", type=["jpg", "jpeg", "png"])
             if st.session_state.image is not None:
                 #predict the image class when uploaded
                 clothes_type = predict_image(st.session_state.image,class_names)
