@@ -8,4 +8,3 @@ pandas==2.2.3
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 tensorflow==2.18.0
-torch==2.6.0+cu118
