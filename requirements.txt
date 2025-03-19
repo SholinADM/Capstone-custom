@@ -8,10 +8,4 @@ pandas==2.2.3
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 tensorflow==2.18.0
-tensorflow-datasets==4.9.7
-tensorflow-examples @ git+https://github.com/tensorflow/examples.git@b54b9c25d6f18e6ab96e72f85eb379c374c7ef93
-tensorflow-metadata==1.16.1
-tensorflow_intel==2.18.0
 torch==2.6.0+cu118
-torchaudio==2.6.0+cu118
-torchvision==0.21.0+cu118
