@@ -1,19 +1,34 @@
-import streamlit as st 
-import numpy as np
-from helper import item_info as info
+import streamlit as st
 
-item_list = ["Blazer","Button shirts","Denim jacket","Hoodie","Jeans","Long pants","Shorts","T shirt"]
-# Initialize session state of sections if it doesn't exist
-if 'section' not in st.session_state:
-    st.session_state.section = 0
+# Hide chat input bar with CSS
+hide_chat_input = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-color: #FFFFFF !important; /* Light mode */
+    color: white !important; /* Ensures text is visible */
+}
+[data-testid="stChatInputContainer"] {
+    display: none !important;
+    height: 0px !important;
+    visibility: hidden !important;
+}
+/* Hide any extra spacing at the bottom */
+main { padding-bottom: 0px !important; }
+</style>
+</style>
+"""
 
-with st.sidebar:
-    with st.container(border=True):
-        for index, item in enumerate(item_list):
-            if st.button(f'section: {item} {index}',key=index, use_container_width = True, type="secondary"):
-                st.session_state.section = index
-        st.html("""<style>[data-testid="stBaseButton-secondary"] {text-align: left;justify-content: flex-start;}</style>""")
+st.markdown(hide_chat_input, unsafe_allow_html=True)
 
-st.write(st.session_state.section)
-info.item(st.session_state.section)
+st.title("Fashionista Bot 🛍️")
+st.write("Helping you decide what to wear!")
 
+# Chat input remains functional
+user_message = st.chat_input("Ask me about outfits...")
+
+if user_message:
+    with st.chat_message("user"):
+        st.write(user_message)
+
+    with st.chat_message("assistant"):
+        st.write("Great choice! Let me suggest an outfit...")

@@ -1,6 +1,10 @@
 import streamlit as st
 from PIL import Image
 
+'''
+Functions for text generation
+'''
+
 def blazer():
     with st.container(border=True):
         col1, col2 = st.columns(2)
@@ -139,5 +143,3 @@ def tshirt():
 def item(index):
         out = [blazer,button_shirts,Denim_jacket,Hoodie,Jeans,Long_pants,shorts,tshirt][index]()
         return out
-
-print(item(0))

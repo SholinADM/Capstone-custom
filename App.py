@@ -3,6 +3,8 @@ from PIL import Image
 import numpy as np
 import json
 import cv2
+import base64
+import os
 from helper.GenbotAPI import extract_message, run_flow
 from helper import item_info as info
 
@@ -43,14 +45,31 @@ def clear_chat():
                 "avatar": "🤖"
             })
     st.rerun()
-
+# Function to creates download popups
 def download_json(data):
     json_data = json.dumps(data)
     json_bytes = json_data.encode('utf-8')
     return json_bytes
+# Background CSS Function
+def set_bg_image(image_url):
+    bg_css = f"""
+    <style>
+    .stApp {{
+        background-image: url("{image_url}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
+    </style>
+    """
+    st.markdown(bg_css, unsafe_allow_html=True)
+
+def get_image_as_base64(file_path):
+    with open(file_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
 #Declare constants
-model = load_model('models/model_class.keras')
+model = load_model(os.path.join('models','model_class.keras'))
 class_names = ['Blazer', 'Denim_Jacket', 'Hoodie', 'Jeans', 'Shorts', 'T shirt', 'button_shirts', 'long_pants']
 TWEAKS = {
   "TextInput-HqNiz": {},
@@ -79,11 +98,36 @@ if 'initiate_uploader' not in st.session_state:
 if 'section' not in st.session_state:
     st.session_state.section = None
 
+
 # Streamlit App 
 def main():
+    image_base64 = get_image_as_base64(os.path.join(os.getcwd(),"static","background.jpg"))
+    
+    st.markdown(
+        f"""
+        <style>
+        [data-testid="stAppViewContainer"] {{
+            background: url("data:image/png;base64,{image_base64}") no-repeat center center fixed;
+            background-size: 100% 100%; /* Ensures the whole image fits */
+            background-repeat: no-repeat; /* Prevents tiling */
+        }}
+        [data-testid="stVerticalBlock"] {{
+        background: rgba(0, 0, 0, 0.5) !important; /* Semi-transparent containers */
+        border-radius: 10px;
+        padding: 10px;
+        }}
+        [data-testid="stChatInputContainer"] {{
+        display: none !important;
+        }}
+        """,
+        unsafe_allow_html=True
+        )
+
     st.title("Fashionista 🤖")
-    st.write(st.session_state.section)
+    st.subheader("Hey there! 👗✨ I’m Fashionista Bot, your personal AI stylist!")
+    st.write("Struggling with outfit choices? I’ve got you covered! Whether it’s a casual day out, a business meeting, or a special occasion, I help you decide what to wear based on the weather, event, and your personal style.I analyze fashion trends, consider your wardrobe preferences, and even check the forecast to make sure you’re stylish and comfortable. Need shopping suggestions? I can recommend pieces to complete your look! Let’s find the perfect outfit together! What’s the occasion today? 💃🕺" )
     with st.sidebar:
+        st.subheader("Item list:")
         with st.container(border=True):
             for index, item in enumerate(class_names):
                 if st.button(f'{item}',key=index, use_container_width = True, type="secondary"):
