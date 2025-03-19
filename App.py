@@ -35,6 +35,7 @@ def save_conversation():
 #clear chat messages from chatbox
 def clear_chat():
     st.session_state.messages = []
+    st.session_state.chatbot = False
     st.session_state.initiate_uploader = False
     st.session_state.image = None
     #initialize chat so the bot greets user instead of user greeting the bot
