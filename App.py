@@ -50,7 +50,7 @@ def download_json(data):
     return json_bytes
 
 #Declare constants
-model = load_model('models\model_class.keras')
+model = load_model('models/model_class.keras')
 class_names = ['Blazer', 'Denim_Jacket', 'Hoodie', 'Jeans', 'Shorts', 'T shirt', 'button_shirts', 'long_pants']
 TWEAKS = {
   "TextInput-HqNiz": {},
