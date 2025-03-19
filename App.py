@@ -38,12 +38,6 @@ def clear_chat():
     st.session_state.initiate_uploader = False
     st.session_state.image = None
     #initialize chat so the bot greets user instead of user greeting the bot
-    assistant_response = extract_message(run_flow("hello",TWEAKS))
-    st.session_state.messages.append({
-                "role": "assistant", 
-                "content": assistant_response,
-                "avatar": "🤖"
-            })
     st.rerun()
 # Function to creates download popups
 def download_json(data):
