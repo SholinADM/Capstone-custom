@@ -24,7 +24,7 @@ def predict_image(image,class_names):
     pred = model.predict(image)
     predict = np.argmax(pred)
     percentage = int(pred[0,predict]*100)
-    if percentage > 80:
+    if percentage > 50:
         st.session_state.section = predict
         predicted_class = class_names[predict]
     else:
@@ -70,7 +70,7 @@ def get_image_as_base64(file_path):
         return base64.b64encode(img_file.read()).decode()
 
 #Declare constants
-model = load_model(os.path.join('models','model2.keras'))
+model = load_model(os.path.join('models','model3.keras'))
 class_names = ['Blazer', 'Denim_Jacket', 'Hoodie', 'Jeans', 'Shorts', 'T shirt', 'button_shirts', 'long_pants']
 TWEAKS = {
   "TextInput-HqNiz": {},
