@@ -164,7 +164,6 @@ def main():
                 clothes_type, confidence = predict_image(st.session_state.image,class_names)
                 #Insert the image classification result to tweak to be sent together with query
                 TWEAKS["TextInput-HqNiz"]["input_value"] = clothes_type
-                st.toast("image uploaded")
                 st.image(st.session_state.image,width=160)
                 st.write(f"image detected: {clothes_type} {confidence}%")
             
