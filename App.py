@@ -70,7 +70,7 @@ def get_image_as_base64(file_path):
         return base64.b64encode(img_file.read()).decode()
 
 #Declare constants
-model = load_model(os.path.join('models','model_class.keras'))
+model = load_model(os.path.join('models','model2.keras'))
 class_names = ['Blazer', 'Denim_Jacket', 'Hoodie', 'Jeans', 'Shorts', 'T shirt', 'button_shirts', 'long_pants']
 TWEAKS = {
   "TextInput-HqNiz": {},
